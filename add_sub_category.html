@@ -1,0 +1,57 @@
+
+    <select id="category">
+       
+    </select><br><br>
+
+
+<input type="text" id="subcategory" placeholder="Subcategory name here"/> <br><br>
+
+<input type="button" onclick="save()" value="submit"/>
+
+
+
+<script type="text/javascript">
+
+    let val = JSON.parse(localStorage.getItem('categorytbl'));
+    let select = "";
+    select += "<option>---select category---</option>";
+    for(let i in val){
+        select += `
+                    <option>${val[i].category}</option>
+            `
+    }
+    
+    document.getElementById('category').innerHTML = select;
+
+    let subcategorydata = [];
+
+    function save(){
+        let category = document.getElementById('category').value;
+        let subcategory = document.getElementById('subcategory').value;
+
+        let obj = {
+            category : category,
+            subcategory : subcategory 
+        }
+
+        if(localStorage.getItem('subcategorytbl')===null || localStorage.getItem('subcategorytbl') === undefined)
+        {
+            subcategorydata.push(obj);
+            localStorage.setItem('subcategorytbl',JSON.stringify(subcategorydata));
+        }
+        else{
+            let val = JSON.parse(localStorage.getItem('subcategorytbl'));
+            val.push(obj);
+            localStorage.setItem('subcategorytbl',JSON.stringify(val));
+        }
+        alert("subcategory successfully add");
+        document.getElementById('category').value = "";
+        document.getElementById('subcategory').value = "";
+
+
+    }
+
+   
+
+
+</script>
